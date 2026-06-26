@@ -41,6 +41,18 @@ export default function Home() {
     t(`cat_${cat.id}`, cat.name).toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const handleSupport = () => {
+    window.location.href = "mailto:abcp8844@gmail.com?subject=Help";
+  };
+
+  const handleShare = async () => {
+    if (navigator.share) {
+      await navigator.share({ title: 'App', url: window.location.href });
+    } else {
+      alert('Link: ' + window.location.href);
+    }
+  };
+
   const requestCurrentLocation = async () => {
     setLoadingProviders(true);
     try {
@@ -99,9 +111,13 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-      <header className="bg-white border-b px-6 py-4 flex justify-between items-center sticky top-0 z-20">
-        <h1 className="text-xl font-bold">{t('app_title')}</h1>
-        <LanguageSelector />
+      <header className="bg-white border-b px-4 py-4 flex justify-between items-center sticky top-0 z-20">
+        <h1 className="text-lg font-bold">{t('app_title')}</h1>
+        <div className="flex items-center gap-3">
+          <button onClick={handleSupport} className="text-sm font-bold text-gray-700">Help</button>
+          <button onClick={handleShare} className="text-sm font-bold text-gray-700">Share</button>
+          <LanguageSelector />
+        </div>
       </header>
 
       <main className="flex-1 max-w-5xl mx-auto p-6">
@@ -156,15 +172,6 @@ export default function Home() {
           </form>
         )}
       </main>
-
-      <div className="fixed bottom-6 right-6 flex flex-col gap-3 z-50">
-        <Link to="/support" className="p-3 bg-white border border-gray-200 rounded-full shadow-lg hover:scale-110 transition-transform">
-          <HelpCircle className="w-6 h-6 text-blue-600" />
-        </Link>
-        <button onClick={() => navigator.share({title: 'App', url: window.location.href})} className="p-3 bg-blue-600 rounded-full shadow-lg hover:scale-110 transition-transform">
-          <Share2 className="w-6 h-6 text-white" />
-        </button>
-      </div>
 
       <AIAssistantModal isOpen={showAiModal} onClose={() => setShowAiModal(false)} onSelectCategory={(cat) => { setSelectedCategory(cat); setStep('location'); }} />
     </div>
