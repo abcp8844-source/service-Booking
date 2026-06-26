@@ -1,14 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://booking-hub.vercel.app/</loc>
-    <lastmod>2026-06-24</lastmod>
+    <loc>https://service-booking-42387.firebaseapp.com/</loc>
+    <lastmod>2026-06-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://booking-hub.vercel.app/owner</loc>
-    <lastmod>2026-06-24</lastmod>
+    <loc>https://service-booking-42387.firebaseapp.com/owner</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://service-booking-42387.firebaseapp.com/category/salon</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://service-booking-42387.firebaseapp.com/category/mechanic</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://service-booking-42387.firebaseapp.com/category/plumber</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://service-booking-42387.firebaseapp.com/category/electrician</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
