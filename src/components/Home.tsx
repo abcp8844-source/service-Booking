@@ -70,7 +70,7 @@ export default function Home() {
       await fetchProviders(coords);
     } catch (err: any) {
       setLoadingProviders(false);
-      setLocError('ERR-001');
+      setLocError(t('failed_location'));
     }
   };
 
@@ -89,7 +89,7 @@ export default function Home() {
       }
     } catch (err: any) {
       setLoadingProviders(false);
-      setLocError('ERR-404');
+      setLocError('Could not find that location. Please try another city name.');
     }
   };
 
@@ -103,15 +103,20 @@ export default function Home() {
       snapshot.forEach(doc => {
         const p = { id: doc.id, ...doc.data() } as Provider;
         const dist = calculateDistance(coords.lat, coords.lng, p.location.lat, p.location.lng);
+        // Do not limit distance tightly, since it's a global app.
+        // We'll just sort by nearest first.
         p.distance = dist;
         found.push(p);
       });
       
+      // Sort by nearest first
       found.sort((a, b) => (a.distance || 0) - (b.distance || 0));
+      // Show top 20 nearest globally
       setProviders(found.slice(0, 20));
       setStep('providers');
     } catch (error) {
-      setLocError('ERR-503');
+      console.error(error);
+      setLocError('Error loading nearby services.');
     } finally {
       setLoadingProviders(false);
     }
@@ -139,11 +144,13 @@ export default function Home() {
       setCustomerPhone('');
       setAppointmentTime('');
     } catch (error) {
+      console.error('Error booking service:', error);
       setBookingStatus('idle');
-      setErrorMsg('ERR-002');
+      setErrorMsg('Failed to book. Please try again.');
     }
   };
 
+  // Rendering Icon dynamically
   const IconComponent = ({ name, className }: { name: string, className?: string }) => {
     const Icon = (Icons as any)[name] || Icons.HelpCircle;
     return <Icon className={className} />;
@@ -200,12 +207,14 @@ export default function Home() {
       </header>
 
       <main className="flex-1 w-full max-w-5xl mx-auto p-4 md:p-6 flex flex-col gap-6">
+        
         {step === 'categories' && (
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div className="pt-6 pb-8 text-center max-w-2xl mx-auto flex flex-col items-center">
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 tracking-tight mb-4 leading-tight">
                 {t('where_need').replace('{{category}}', '')}
               </h2>
+              
               <div className="flex flex-col items-center gap-3 mb-4">
                 <button 
                   onClick={() => setShowAiModal(true)}
@@ -218,10 +227,12 @@ export default function Home() {
                   This is about the AI
                 </p>
               </div>
+
               <p className="text-lg text-gray-500 font-medium">
                 Will find professional near this location.
               </p>
             </div>
+
             <div className="relative max-w-2xl mx-auto mb-10 flex gap-2">
               <div className="relative flex-1">
                 <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 text-gray-400" />
@@ -234,6 +245,7 @@ export default function Home() {
                 />
               </div>
             </div>
+
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
               {filteredCategories.map((cat) => (
                 <button 
@@ -265,12 +277,14 @@ export default function Home() {
               <ChevronLeft className="w-5 h-5" />
               {t('back')}
             </button>
+
             <div className="bg-white border border-gray-200 rounded-3xl p-6 md:p-8 shadow-xl shadow-gray-100/50 text-center">
               <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-5">
                 <MapPin className="w-8 h-8 text-blue-600" />
               </div>
               <h2 className="text-2xl font-extrabold text-gray-900 mb-2">{t('where_need', {category: t(`cat_${selectedCategory.id}`)})}</h2>
               <p className="text-gray-500 font-medium mb-8">{t('find_professionals')}</p>
+
               {loadingProviders ? (
                 <div className="py-8 flex flex-col items-center justify-center text-gray-500">
                   <div className="w-10 h-10 border-4 border-gray-100 border-t-blue-600 rounded-full animate-spin mb-4"></div>
@@ -285,11 +299,13 @@ export default function Home() {
                     <Navigation className="w-5 h-5" />
                     {t('use_current_location')}
                   </button>
+
                   <div className="relative flex items-center py-2">
                     <div className="flex-grow border-t border-gray-200"></div>
                     <span className="flex-shrink-0 mx-4 text-gray-400 font-bold text-sm">{t('or')}</span>
                     <div className="flex-grow border-t border-gray-200"></div>
                   </div>
+
                   <div className="flex flex-col gap-2">
                     <div className="relative">
                       <Map className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -312,6 +328,7 @@ export default function Home() {
                   </div>
                 </div>
               )}
+
               {locError && (
                 <div className="mt-6 flex items-center gap-2 text-red-600 bg-red-50 p-4 rounded-xl text-sm border border-red-100 text-left">
                   <AlertCircle className="w-5 h-5 shrink-0" />
@@ -331,6 +348,7 @@ export default function Home() {
               <ChevronLeft className="w-5 h-5" />
               {t('back')}
             </button>
+            
             <div className="mb-8 flex items-center justify-between bg-white p-6 rounded-3xl border border-gray-100 shadow-sm">
               <div>
                 <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900">{t(`cat_${selectedCategory.id}`)}</h2>
@@ -343,6 +361,7 @@ export default function Home() {
                 <IconComponent name={selectedCategory.icon} className="w-7 h-7 text-blue-600" />
               </div>
             </div>
+
             {providers.length === 0 ? (
               <div className="bg-white border border-gray-200 border-dashed rounded-3xl p-16 text-center shadow-sm">
                 <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-5">
@@ -393,11 +412,13 @@ export default function Home() {
               <ChevronLeft className="w-5 h-5" />
               {t('back')}
             </button>
+
             <div className="bg-white border border-gray-200 rounded-3xl p-6 md:p-8 shadow-xl shadow-gray-100/50">
               <div className="mb-8">
                 <h3 className="text-2xl md:text-3xl font-extrabold text-gray-900">Book {selectedProvider.shopName}</h3>
                 <p className="text-gray-500 mt-2 font-medium">Please provide your details to confirm the appointment.</p>
               </div>
+
               <form onSubmit={handleBooking} className="flex flex-col gap-5">
                 <div className="relative">
                   <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -431,12 +452,14 @@ export default function Home() {
                     className="w-full bg-gray-50 border border-gray-200 rounded-xl py-4 pl-12 pr-4 font-bold focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-gray-700"
                   />
                 </div>
+                
                 {errorMsg && (
                   <div className="flex items-center gap-2 text-red-600 bg-red-50 p-4 rounded-xl text-sm mt-2 border border-red-100">
                     <AlertCircle className="w-5 h-5 shrink-0" />
                     <p className="font-bold">{errorMsg}</p>
                   </div>
                 )}
+
                 <button 
                   type="submit" 
                   disabled={bookingStatus === 'submitting'}
@@ -449,6 +472,7 @@ export default function Home() {
           </div>
         )}
       </main>
+
       <AIAssistantModal 
         isOpen={showAiModal} 
         onClose={() => setShowAiModal(false)} 
@@ -456,4 +480,4 @@ export default function Home() {
       />
     </div>
   );
-}
+                }
