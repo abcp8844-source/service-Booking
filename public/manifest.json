@@ -1,6 +1,6 @@
 {
-  "name": "Service Book",
-  "short_name": "ServiceBook",
+  "name": "Booking Service",
+  "short_name": "BookingService",
   "description": "Premium Service Booking Application",
   "start_url": "/",
   "display": "standalone",
