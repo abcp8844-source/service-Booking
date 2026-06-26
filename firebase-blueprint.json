@@ -1,24 +1,14 @@
-{
-  "collections": [
-    {
-      "name": "bookings",
-      "rules": [
-        {
-          "allow": "read",
-          "condition": "request.auth != null",
-          "description": "Authenticated owners can view bookings"
-        },
-        {
-          "allow": "create",
-          "condition": "true",
-          "description": "Anyone can create a booking"
-        },
-        {
-          "allow": "update, delete",
-          "condition": "request.auth != null",
-          "description": "Authenticated owners can update or delete bookings"
-        }
-      ]
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    match /bookings/{bookingId} {
+      // کوئی بھی بکنگ بنا سکتا ہے
+      allow create: if true;
+      
+      // صرف لاگ ان یوزر ہی پڑھ، اپ ڈیٹ یا ڈیلیٹ کر سکتا ہے
+      allow read, update, delete: if request.auth != null;
     }
-  ]
+    
+  }
 }
