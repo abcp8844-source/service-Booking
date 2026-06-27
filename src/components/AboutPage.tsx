@@ -58,7 +58,7 @@ export default function AboutPage() {
             <a href="mailto:abcp8844@gmail.com" 
                className="flex items-center justify-center gap-2 bg-white text-blue-700 px-8 py-4 rounded-xl font-bold hover:bg-blue-50 transition-all shadow-lg">
               <Mail className="w-5 h-5" />
-              {t('admin_support', 'Admin Support')}
+              {t('admin_contact', 'Admin Contact')}
             </a>
 
             <a href="https://wa.me/message/H4KM5YQEOMITE1" target="_blank" rel="noopener noreferrer"
