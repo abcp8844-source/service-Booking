@@ -13,11 +13,11 @@ export default function AboutPage() {
           <div className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-100 px-4 py-2 rounded-full mb-4 shadow-sm">
             <Sparkles className="w-5 h-5 text-indigo-500" />
             <span className="text-sm font-bold text-indigo-600">
-              {t('about', 'Corporate Identity')}
+              {t('about')}
             </span>
           </div>
           <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 tracking-tight">
-            {t('about_title', 'Terms, Privacy & Support')}
+            {t('about_title')}
           </h1>
         </div>
 
@@ -25,46 +25,46 @@ export default function AboutPage() {
           
           <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8 flex flex-col">
             <FileText className="w-8 h-8 text-blue-600 mb-6" />
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">{t('about_us', 'About Us')}</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">{t('about_us')}</h2>
             <p className="text-gray-600 text-sm leading-relaxed">
-              We founded this platform with a vision to integrate technology with human convenience. We exist to simplify your access to skilled professionals, acting as a digital bridge that ensures quality and trust. We are not just an application; we are a responsible institution that values your time and strives to build a system where every user and service provider feels secure and satisfied.
+              {t('about_us_desc')}
             </p>
           </div>
 
           <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8 flex flex-col">
             <Shield className="w-8 h-8 text-purple-600 mb-6" />
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">{t('terms_of_service', 'Terms of Service')}</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">{t('terms_of_service')}</h2>
             <p className="text-gray-600 text-sm leading-relaxed">
-              Our platform functions as a digital directory and facilitator. While we are not directly responsible for the personal actions of users or providers, we maintain rigorous standards. We reserve the right to blacklist accounts involved in fraudulent activity or repeated booking cancellations. Your appointments are private agreements, with our role dedicated strictly to professional facilitation.
+              {t('terms_desc')}
             </p>
           </div>
 
           <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8 flex flex-col md:col-span-2">
             <Shield className="w-8 h-8 text-emerald-600 mb-6" />
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">{t('privacy_policy', 'Privacy Policy')}</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">{t('privacy_policy')}</h2>
             <p className="text-gray-600 text-sm leading-relaxed">
-              Your trust is our most valuable asset. We utilize the world-class security infrastructure of Google Firebase to ensure your data remains protected. We guarantee total transparency: your information is used exclusively to facilitate your bookings. Access to your personal data is restricted, even from our internal teams, ensuring that your privacy is maintained through Google's advanced technology and your explicit consent.
+              {t('privacy_desc')}
             </p>
           </div>
         </div>
 
         <div className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white rounded-3xl shadow-xl mt-8 p-8 md:p-12 text-center">
-          <h2 className="text-3xl font-extrabold mb-4">{t('contact_us', 'Contact & Support')}</h2>
+          <h2 className="text-3xl font-extrabold mb-4">{t('contact_us')}</h2>
           <p className="text-blue-100 max-w-lg mx-auto mb-8 font-medium">
-            We are dedicated to providing you with an exceptional experience. Should you require any assistance, our professional team is here to support you with care and efficiency.
+            {t('contact_desc')}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="mailto:abcp8844@gmail.com" 
                className="flex items-center justify-center gap-2 bg-white text-blue-700 px-8 py-4 rounded-xl font-bold hover:bg-blue-50 transition-all shadow-lg">
               <Mail className="w-5 h-5" />
-              {t('admin_contact', 'Admin Contact')}
+              {t('admin_contact')}
             </a>
 
             <a href="https://wa.me/message/H4KM5YQEOMITE1" target="_blank" rel="noopener noreferrer"
                className="flex items-center justify-center gap-2 bg-transparent border-2 border-white/30 text-white px-8 py-4 rounded-xl font-bold hover:bg-white/10 transition-all">
               <MessageSquare className="w-5 h-5" />
-              {t('emergency_support', 'Emergency Support')}
+              {t('emergency_support')}
             </a>
           </div>
         </div>
